@@ -12933,6 +12933,7 @@ local onPlayerAdded = LPH_NO_VIRTUALIZE(function(player)
 	local addedId, removingId, destroyingId
 
 	addedId = visualsMaid:add(characterAdded:connect("Visuals_CharacterAdded_" .. player.UserId, function(character)
+		onInstanceRemoving(player)
 		emplaceObject(player, PlayerESP.new("Player", player, character))
 	end))
 
@@ -13338,13 +13339,17 @@ EntityESP.build = LPH_NO_VIRTUALIZE(function(self)
 
 	if not self.sextents then
 		local fmodel = self.entity:Clone()
-		for _, inst in next, fmodel:GetDescendants() do
-			if not inst.Parent then continue end
-			if inst:IsA("BasePart") and not inst.Parent:IsA("BasePart") then continue end
-			if not inst:FindFirstChildWhichIsA("Weld") and not inst:FindFirstChildWhichIsA("Motor6D") then continue end
-			inst:Destroy()
+		if fmodel then
+			for _, inst in next, fmodel:GetDescendants() do
+				if not inst.Parent then continue end
+				if inst:IsA("BasePart") and not inst.Parent:IsA("BasePart") then continue end
+				if not inst:FindFirstChildWhichIsA("Weld") and not inst:FindFirstChildWhichIsA("Motor6D") then continue end
+				inst:Destroy()
+			end
+			self.sextents = fmodel:GetExtentsSize()
+		else
+			self.sextents = extentsSize
 		end
-		self.sextents = fmodel:GetExtentsSize()
 	end
 
 	self.billboard.Size = UDim2.new(
@@ -13567,10 +13572,12 @@ PlayerESP.update = LPH_NO_VIRTUALIZE(function(self)
 	-- Tags.
 	local tags = {}
 
-	if Configuration.idToggleValue(identifier, "ShowHealthPercentage") then
-		tags[#tags + 1] = ESP_HEALTH_PCT:format((humanoid.Health / humanoid.MaxHealth) * 100)
-	else
-		tags[#tags + 1] = ESP_HEALTH:format(math.floor(humanoid.Health), math.floor(humanoid.MaxHealth))
+	if Configuration.idToggleValue(identifier, "ShowHealth") then
+		if Configuration.idToggleValue(identifier, "ShowHealthPercentage") then
+			tags[#tags + 1] = ESP_HEALTH_PCT:format((humanoid.Health / humanoid.MaxHealth) * 100)
+		else
+			tags[#tags + 1] = ESP_HEALTH:format(math.floor(humanoid.Health), math.floor(humanoid.MaxHealth))
+		end
 	end
 
 	EntityESP.update(self, tags)
@@ -15018,15 +15025,19 @@ function VisualsTab.addPlayerESP(identifier, depbox)
 		Default = Color3.new(1, 1, 1),
 	})
 
-	depbox:AddToggle(Configuration.identify(identifier, "ShowHealthPercentage"), {
-		Text = "Show Health Percentage",
+	local showHealthToggle = depbox:AddToggle(Configuration.identify(identifier, "ShowHealth"), {
+		Text = "Show Health",
+		Default = true,
+	})
+
+	local shDepBox = depbox:AddDependencyBox()
+
+	shDepBox:AddToggle(Configuration.identify(identifier, "ShowHealthPercentage"), {
+		Text = "Show As Percentage",
 		Default = false,
 	})
 
-	depbox:AddToggle(Configuration.identify(identifier, "ShowHealthBars"), {
-		Text = "Show Health In Bars",
-		Default = false,
-	})
+	shDepBox:SetupDependencies({ { showHealthToggle, true } })
 
 	local maDepBox = depbox:AddDependencyBox()
 
