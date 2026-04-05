@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/GetRevolutionStatus","Name":"GetRevolutionStatus","ClassName":"RemoteFunction"}

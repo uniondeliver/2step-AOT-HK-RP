@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Assets/ClientEvents","FullPath":"ReplicatedStorage/Assets/ClientEvents/PlaySound","Name":"PlaySound","ClassName":"RemoteEvent"}

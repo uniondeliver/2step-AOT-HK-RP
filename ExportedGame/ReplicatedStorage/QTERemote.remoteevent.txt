@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/QTERemote","Name":"QTERemote","ClassName":"RemoteEvent"}

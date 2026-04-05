@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/OSTControl","Name":"OSTControl","ClassName":"RemoteEvent"}

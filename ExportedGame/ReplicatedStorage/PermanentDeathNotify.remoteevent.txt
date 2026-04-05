@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/PermanentDeathNotify","Name":"PermanentDeathNotify","ClassName":"RemoteEvent"}

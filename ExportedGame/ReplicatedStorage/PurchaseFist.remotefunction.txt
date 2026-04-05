@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/PurchaseFist","Name":"PurchaseFist","ClassName":"RemoteFunction"}

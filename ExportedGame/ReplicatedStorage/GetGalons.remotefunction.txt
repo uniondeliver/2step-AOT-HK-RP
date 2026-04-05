@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/GetGalons","Name":"GetGalons","ClassName":"RemoteFunction"}

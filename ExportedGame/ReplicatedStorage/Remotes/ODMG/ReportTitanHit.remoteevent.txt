@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Remotes/ODMG","FullPath":"ReplicatedStorage/Remotes/ODMG/ReportTitanHit","Name":"ReportTitanHit","ClassName":"RemoteEvent"}

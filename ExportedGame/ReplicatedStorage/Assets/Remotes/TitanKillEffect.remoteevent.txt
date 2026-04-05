@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Assets/Remotes","FullPath":"ReplicatedStorage/Assets/Remotes/TitanKillEffect","Name":"TitanKillEffect","ClassName":"RemoteEvent"}

@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Assets/Remotes","FullPath":"ReplicatedStorage/Assets/Remotes/TitanToolRemote","Name":"TitanToolRemote","ClassName":"RemoteEvent"}

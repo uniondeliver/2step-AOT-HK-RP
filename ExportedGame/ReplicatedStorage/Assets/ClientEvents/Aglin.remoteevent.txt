@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Assets/ClientEvents","FullPath":"ReplicatedStorage/Assets/ClientEvents/Aglin","Name":"Aglin","ClassName":"RemoteEvent"}

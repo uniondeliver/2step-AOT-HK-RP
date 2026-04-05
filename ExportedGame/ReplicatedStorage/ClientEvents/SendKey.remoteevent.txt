@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/ClientEvents","FullPath":"ReplicatedStorage/ClientEvents/SendKey","Name":"SendKey","ClassName":"RemoteEvent"}

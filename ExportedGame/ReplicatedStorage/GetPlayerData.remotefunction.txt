@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/GetPlayerData","Name":"GetPlayerData","ClassName":"RemoteFunction"}

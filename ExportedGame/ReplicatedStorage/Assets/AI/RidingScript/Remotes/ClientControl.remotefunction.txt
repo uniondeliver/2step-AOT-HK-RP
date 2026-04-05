@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Assets/AI/Horse/RidingScript/Remotes","FullPath":"ReplicatedStorage/Assets/AI/Horse/RidingScript/Remotes/ClientControl","Name":"ClientControl","ClassName":"RemoteFunction"}

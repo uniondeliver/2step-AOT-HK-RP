@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/CheckFirstJoin","Name":"CheckFirstJoin","ClassName":"RemoteEvent"}

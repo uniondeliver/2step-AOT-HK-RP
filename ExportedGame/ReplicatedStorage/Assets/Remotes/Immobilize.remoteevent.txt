@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Assets/Remotes","FullPath":"ReplicatedStorage/Assets/Remotes/Immobilize","Name":"Immobilize","ClassName":"RemoteEvent"}

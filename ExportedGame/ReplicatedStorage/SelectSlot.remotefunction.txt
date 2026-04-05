@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/SelectSlot","Name":"SelectSlot","ClassName":"RemoteFunction"}

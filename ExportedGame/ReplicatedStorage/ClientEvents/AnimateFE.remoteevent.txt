@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/ClientEvents","FullPath":"ReplicatedStorage/ClientEvents/AnimateFE","Name":"AnimateFE","ClassName":"RemoteEvent"}

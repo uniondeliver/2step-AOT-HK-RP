@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Remotes/ODMG","FullPath":"ReplicatedStorage/Remotes/ODMG/DeductBladeState","Name":"DeductBladeState","ClassName":"RemoteEvent"}

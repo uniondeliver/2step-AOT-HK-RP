@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage/Assets/Remotes/ShifterRemotes","FullPath":"ReplicatedStorage/Assets/Remotes/ShifterRemotes/ShifterMain","Name":"ShifterMain","ClassName":"RemoteEvent"}

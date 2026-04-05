@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/GetMerchantItems","Name":"GetMerchantItems","ClassName":"RemoteFunction"}

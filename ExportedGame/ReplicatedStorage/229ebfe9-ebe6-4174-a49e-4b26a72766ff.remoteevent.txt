@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/229ebfe9-ebe6-4174-a49e-4b26a72766ff","Name":"229ebfe9-ebe6-4174-a49e-4b26a72766ff","ClassName":"RemoteEvent"}

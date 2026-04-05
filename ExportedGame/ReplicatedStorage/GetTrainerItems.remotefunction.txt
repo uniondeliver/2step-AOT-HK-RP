@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/GetTrainerItems","Name":"GetTrainerItems","ClassName":"RemoteFunction"}

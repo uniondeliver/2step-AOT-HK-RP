@@ -1,0 +1,1 @@
+{"ParentPath":"ReplicatedStorage","FullPath":"ReplicatedStorage/PurchaseRevolutionaryPass","Name":"PurchaseRevolutionaryPass","ClassName":"RemoteFunction"}
