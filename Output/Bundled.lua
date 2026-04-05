@@ -11955,6 +11955,9 @@ local InfiniteGas = require("Features/Game/InfiniteGas")
 ---@module Features.Game.InfiniteBlade
 local InfiniteBlade = require("Features/Game/InfiniteBlade")
 
+---@module Features.Game.InfiniteHook
+local InfiniteHook = require("Features/Game/InfiniteHook")
+
 ---@module Features.Combat.NapeExpander
 local NapeExpander = require("Features/Combat/NapeExpander")
 
@@ -11966,6 +11969,7 @@ function Features.init()
 	Monitoring.init()
 	InfiniteGas.init()
 	InfiniteBlade.init()
+	InfiniteHook.init()
 	NapeExpander.init()
 end
 
@@ -11977,6 +11981,7 @@ function Features.detach()
 	Monitoring.detach()
 	InfiniteGas.detach()
 	InfiniteBlade.detach()
+	InfiniteHook.detach()
 	NapeExpander.detach()
 end
 
@@ -12050,6 +12055,67 @@ function NapeExpander.detach()
 end
 
 return NapeExpander
+
+end)
+__bundle_register("Features/Game/InfiniteHook", function(require, _LOADED, __bundle_register, __bundle_modules)
+---@module Features.Game.InfiniteHook
+local InfiniteHook = {}
+
+---@module Utility.Maid
+local Maid = require("Utility/Maid")
+
+---@module Utility.Configuration
+local Configuration = require("Utility/Configuration")
+
+local maid = Maid.new()
+
+local players = game:GetService("Players")
+
+local OldNameCall = nil
+
+
+---Check if the calling script is the ODMG client.
+---@return boolean
+local function isODMGCaller()
+	local ok, script = pcall(getcallingscript)
+	if not ok or not script then return false end
+	return script.Name == "Client"
+		and script.Parent
+		and script.Parent.Name == "ODMG"
+end
+
+function InfiniteHook.init()
+	OldNameCall = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
+		if not checkcaller() then
+			local method = getnamecallmethod()
+
+			if method == "Raycast" and self == workspace then
+				if Configuration.expectToggleValue("InfiniteHook") and isODMGCaller() then
+					local origin, direction, params = ...
+					if direction and direction.Magnitude > 0 then
+						local range = Configuration.expectOptionValue("HookRange") or 500
+						return OldNameCall(self, origin, direction.Unit * range, params)
+					end
+				end
+			end
+		end
+
+		return OldNameCall(self, ...)
+	end))
+
+	maid:add(function()
+		if OldNameCall then
+			hookmetamethod(game, "__namecall", OldNameCall)
+			OldNameCall = nil
+		end
+	end)
+end
+
+function InfiniteHook.detach()
+	maid:clean()
+end
+
+return InfiniteHook
 
 end)
 __bundle_register("Features/Game/InfiniteBlade", function(require, _LOADED, __bundle_register, __bundle_modules)
@@ -15320,17 +15386,6 @@ function GameTab.initLocalCharacterSection(groupbox)
 		Default = false,
 	})
 
-	groupbox:AddToggle("InfiniteGas", {
-		Text = "Infinite Gas",
-		Tooltip = "Prevent gas from depleting by locking it at maximum.",
-		Default = false,
-	})
-
-	groupbox:AddToggle("InfiniteBlade", {
-		Text = "Infinite Blade",
-		Tooltip = "Block blade wear and cartridge deduction remotes.",
-		Default = false,
-	})
 
 	infiniteJumpDepBox:SetupDependencies({
 		{ Toggles.InfiniteJump, true },
@@ -15361,6 +15416,41 @@ function GameTab.initLocalCharacterSection(groupbox)
 			humanoid.Health = 0
 		end,
 	})
+end
+
+---Initialize ODM Gear section.
+---@param groupbox table
+function GameTab.initODMSection(groupbox)
+	groupbox:AddToggle("InfiniteGas", {
+		Text = "Infinite Gas",
+		Tooltip = "Prevent gas from depleting by locking it at maximum.",
+		Default = false,
+	})
+
+	groupbox:AddToggle("InfiniteBlade", {
+		Text = "Infinite Blade",
+		Tooltip = "Block blade wear and cartridge deduction remotes.",
+		Default = false,
+	})
+
+	local hookToggle = groupbox:AddToggle("InfiniteHook", {
+		Text = "Extended Hook Range",
+		Tooltip = "Extends ODM hook range beyond the normal limit.",
+		Default = false,
+	})
+
+	local hookDepBox = groupbox:AddDependencyBox()
+
+	hookDepBox:AddSlider("HookRange", {
+		Text = "Hook Range",
+		Default = 500,
+		Min = 100,
+		Max = 2000,
+		Suffix = " studs",
+		Rounding = 0,
+	})
+
+	hookDepBox:SetupDependencies({ { hookToggle, true } })
 end
 
 ---Initialize player monitoring section.
@@ -15471,6 +15561,7 @@ function GameTab.init(window)
 	local tab = window:AddTab("Game")
 
 	GameTab.initDebuggingSection(tab:AddDynamicGroupbox("Debugging"))
+	GameTab.initODMSection(tab:AddDynamicGroupbox("ODM Gear"))
 	GameTab.initPlayerMonitoringSection(tab:AddDynamicGroupbox("Player Monitoring"))
 	GameTab.initLocalCharacterSection(tab:AddDynamicGroupbox("Local Character"))
 end

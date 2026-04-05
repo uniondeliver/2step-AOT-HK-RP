@@ -89,17 +89,6 @@ function GameTab.initLocalCharacterSection(groupbox)
 		Default = false,
 	})
 
-	groupbox:AddToggle("InfiniteGas", {
-		Text = "Infinite Gas",
-		Tooltip = "Prevent gas from depleting by locking it at maximum.",
-		Default = false,
-	})
-
-	groupbox:AddToggle("InfiniteBlade", {
-		Text = "Infinite Blade",
-		Tooltip = "Block blade wear and cartridge deduction remotes.",
-		Default = false,
-	})
 
 	infiniteJumpDepBox:SetupDependencies({
 		{ Toggles.InfiniteJump, true },
@@ -130,6 +119,41 @@ function GameTab.initLocalCharacterSection(groupbox)
 			humanoid.Health = 0
 		end,
 	})
+end
+
+---Initialize ODM Gear section.
+---@param groupbox table
+function GameTab.initODMSection(groupbox)
+	groupbox:AddToggle("InfiniteGas", {
+		Text = "Infinite Gas",
+		Tooltip = "Prevent gas from depleting by locking it at maximum.",
+		Default = false,
+	})
+
+	groupbox:AddToggle("InfiniteBlade", {
+		Text = "Infinite Blade",
+		Tooltip = "Block blade wear and cartridge deduction remotes.",
+		Default = false,
+	})
+
+	local hookToggle = groupbox:AddToggle("InfiniteHook", {
+		Text = "Extended Hook Range",
+		Tooltip = "Extends ODM hook range beyond the normal limit.",
+		Default = false,
+	})
+
+	local hookDepBox = groupbox:AddDependencyBox()
+
+	hookDepBox:AddSlider("HookRange", {
+		Text = "Hook Range",
+		Default = 500,
+		Min = 100,
+		Max = 2000,
+		Suffix = " studs",
+		Rounding = 0,
+	})
+
+	hookDepBox:SetupDependencies({ { hookToggle, true } })
 end
 
 ---Initialize player monitoring section.
@@ -240,6 +264,7 @@ function GameTab.init(window)
 	local tab = window:AddTab("Game")
 
 	GameTab.initDebuggingSection(tab:AddDynamicGroupbox("Debugging"))
+	GameTab.initODMSection(tab:AddDynamicGroupbox("ODM Gear"))
 	GameTab.initPlayerMonitoringSection(tab:AddDynamicGroupbox("Player Monitoring"))
 	GameTab.initLocalCharacterSection(tab:AddDynamicGroupbox("Local Character"))
 end

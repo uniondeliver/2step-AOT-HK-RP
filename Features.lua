@@ -24,6 +24,9 @@ local InfiniteGas = require("Features/Game/InfiniteGas")
 ---@module Features.Game.InfiniteBlade
 local InfiniteBlade = require("Features/Game/InfiniteBlade")
 
+---@module Features.Game.InfiniteHook
+local InfiniteHook = require("Features/Game/InfiniteHook")
+
 ---@module Features.Combat.NapeExpander
 local NapeExpander = require("Features/Combat/NapeExpander")
 
@@ -35,6 +38,7 @@ function Features.init()
 	Monitoring.init()
 	InfiniteGas.init()
 	InfiniteBlade.init()
+	InfiniteHook.init()
 	NapeExpander.init()
 end
 
@@ -46,6 +50,7 @@ function Features.detach()
 	Monitoring.detach()
 	InfiniteGas.detach()
 	InfiniteBlade.detach()
+	InfiniteHook.detach()
 	NapeExpander.detach()
 end
 
