@@ -136,24 +136,6 @@ function GameTab.initODMSection(groupbox)
 		Default = false,
 	})
 
-	local hookToggle = groupbox:AddToggle("InfiniteHook", {
-		Text = "Extended Hook Range",
-		Tooltip = "Extends ODM hook range beyond the normal limit.",
-		Default = false,
-	})
-
-	local hookDepBox = groupbox:AddDependencyBox()
-
-	hookDepBox:AddSlider("HookRange", {
-		Text = "Hook Range",
-		Default = 500,
-		Min = 100,
-		Max = 2000,
-		Suffix = " studs",
-		Rounding = 0,
-	})
-
-	hookDepBox:SetupDependencies({ { hookToggle, true } })
 end
 
 ---Initialize player monitoring section.
