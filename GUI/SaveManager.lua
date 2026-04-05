@@ -127,15 +127,16 @@ return LPH_NO_VIRTUALIZE(function()
 
 			local fullPath = self.Folder .. "/" .. name .. ".json"
 
+			local lib = self.Library
 			local data = {
 				objects = {},
-				keybindFramePosition = uDIm2Export(self.Library.KeybindFrame.Position),
-				watermarkFramePosition = uDIm2Export(self.Library.Watermark.Position),
-				infoLoggerFramePosition = uDIm2Export(self.Library.InfoLoggerFrame.Position),
-				infoLoggerBlacklistHistory = self.Library.InfoLoggerData.KeyBlacklistHistory,
-				infoLoggerBlacklist = self.Library.InfoLoggerData.KeyBlacklistList,
-				infoLoggerCycle = self.Library.InfoLoggerData.InfoLoggerCycle,
-				animationVisualizerFramePosition = uDIm2Export(self.Library.AnimationVisualizerFrame.Position),
+				keybindFramePosition = lib.KeybindFrame and uDIm2Export(lib.KeybindFrame.Position),
+				watermarkFramePosition = lib.Watermark and uDIm2Export(lib.Watermark.Position),
+				infoLoggerFramePosition = lib.InfoLoggerFrame and uDIm2Export(lib.InfoLoggerFrame.Position),
+				infoLoggerBlacklistHistory = lib.InfoLoggerData and lib.InfoLoggerData.KeyBlacklistHistory,
+				infoLoggerBlacklist = lib.InfoLoggerData and lib.InfoLoggerData.KeyBlacklistList,
+				infoLoggerCycle = lib.InfoLoggerData and lib.InfoLoggerData.InfoLoggerCycle,
+				animationVisualizerFramePosition = lib.AnimationVisualizerFrame and uDIm2Export(lib.AnimationVisualizerFrame.Position),
 			}
 
 			for idx, toggle in next, Toggles do
@@ -197,7 +198,7 @@ return LPH_NO_VIRTUALIZE(function()
 				self.Library.InfoLoggerData.KeyBlacklistHistory = decoded.infoLoggerBlacklistHistory
 			end
 
-			if decoded.animationVisualizerFramePosition then
+			if decoded.animationVisualizerFramePosition and self.Library.AnimationVisualizerFrame then
 				self.Library.AnimationVisualizerFrame.Position = uDim2Import(decoded.animationVisualizerFramePosition)
 			end
 
