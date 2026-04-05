@@ -177,15 +177,19 @@ function VisualsTab.addPlayerESP(identifier, depbox)
 		Default = Color3.new(1, 1, 1),
 	})
 
-	depbox:AddToggle(Configuration.identify(identifier, "ShowHealthPercentage"), {
-		Text = "Show Health Percentage",
+	local showHealthToggle = depbox:AddToggle(Configuration.identify(identifier, "ShowHealth"), {
+		Text = "Show Health",
+		Default = true,
+	})
+
+	local shDepBox = depbox:AddDependencyBox()
+
+	shDepBox:AddToggle(Configuration.identify(identifier, "ShowHealthPercentage"), {
+		Text = "Show As Percentage",
 		Default = false,
 	})
 
-	depbox:AddToggle(Configuration.identify(identifier, "ShowHealthBars"), {
-		Text = "Show Health In Bars",
-		Default = false,
-	})
+	shDepBox:SetupDependencies({ { showHealthToggle, true } })
 
 	local maDepBox = depbox:AddDependencyBox()
 

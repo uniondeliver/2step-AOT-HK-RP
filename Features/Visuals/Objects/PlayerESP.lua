@@ -53,10 +53,12 @@ PlayerESP.update = LPH_NO_VIRTUALIZE(function(self)
 	-- Tags.
 	local tags = {}
 
-	if Configuration.idToggleValue(identifier, "ShowHealthPercentage") then
-		tags[#tags + 1] = ESP_HEALTH_PCT:format((humanoid.Health / humanoid.MaxHealth) * 100)
-	else
-		tags[#tags + 1] = ESP_HEALTH:format(math.floor(humanoid.Health), math.floor(humanoid.MaxHealth))
+	if Configuration.idToggleValue(identifier, "ShowHealth") then
+		if Configuration.idToggleValue(identifier, "ShowHealthPercentage") then
+			tags[#tags + 1] = ESP_HEALTH_PCT:format((humanoid.Health / humanoid.MaxHealth) * 100)
+		else
+			tags[#tags + 1] = ESP_HEALTH:format(math.floor(humanoid.Health), math.floor(humanoid.MaxHealth))
+		end
 	end
 
 	EntityESP.update(self, tags)

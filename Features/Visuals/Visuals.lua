@@ -78,6 +78,7 @@ local onPlayerAdded = LPH_NO_VIRTUALIZE(function(player)
 	local addedId, removingId, destroyingId
 
 	addedId = visualsMaid:add(characterAdded:connect("Visuals_CharacterAdded_" .. player.UserId, function(character)
+		onInstanceRemoving(player)
 		emplaceObject(player, PlayerESP.new("Player", player, character))
 	end))
 

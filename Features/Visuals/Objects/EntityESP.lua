@@ -267,13 +267,17 @@ EntityESP.build = LPH_NO_VIRTUALIZE(function(self)
 
 	if not self.sextents then
 		local fmodel = self.entity:Clone()
-		for _, inst in next, fmodel:GetDescendants() do
-			if not inst.Parent then continue end
-			if inst:IsA("BasePart") and not inst.Parent:IsA("BasePart") then continue end
-			if not inst:FindFirstChildWhichIsA("Weld") and not inst:FindFirstChildWhichIsA("Motor6D") then continue end
-			inst:Destroy()
+		if fmodel then
+			for _, inst in next, fmodel:GetDescendants() do
+				if not inst.Parent then continue end
+				if inst:IsA("BasePart") and not inst.Parent:IsA("BasePart") then continue end
+				if not inst:FindFirstChildWhichIsA("Weld") and not inst:FindFirstChildWhichIsA("Motor6D") then continue end
+				inst:Destroy()
+			end
+			self.sextents = fmodel:GetExtentsSize()
+		else
+			self.sextents = extentsSize
 		end
-		self.sextents = fmodel:GetExtentsSize()
 	end
 
 	self.billboard.Size = UDim2.new(
