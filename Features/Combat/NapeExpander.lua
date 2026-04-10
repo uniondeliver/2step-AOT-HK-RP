@@ -18,12 +18,24 @@ local workspace = game:GetService("Workspace")
 ---@param part BasePart
 ---@param scale number
 local function expandPart(part, scale)
-	-- Strip the size-protection signal set up by TitanClient's ProtectHitboxSizes.
-	for _, conn in ipairs(getconnections(part:GetPropertyChangedSignal("Size"))) do
-		conn:Disconnect()
+	local method = Configuration.expectOptionValue("NapeExpandMethod") or "Disconnect"
+
+	if method == "Disconnect" then
+		for _, conn in ipairs(getconnections(part:GetPropertyChangedSignal("Size"))) do
+			conn:Disconnect()
+		end
+		part.Size = part.Size * scale
+	else
+		-- Override: keep resetting the size every time the game reverts it.
+		local targetSize = part.Size * scale
+		part.Size = targetSize
+		maid:add(part:GetPropertyChangedSignal("Size"):Connect(function()
+			if part.Size ~= targetSize then
+				part.Size = targetSize
+			end
+		end))
 	end
 
-	part.Size = part.Size * scale
 	part.CanCollide = false
 	part.Transparency = Configuration.expectOptionValue("NapeTransparency") or 1
 end

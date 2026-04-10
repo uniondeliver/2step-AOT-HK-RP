@@ -17,7 +17,7 @@ function CombatTab.initNapeExpander(groupbox)
 		Tooltip = "Multiplier applied to the original hitbox size.",
 		Default = 5,
 		Min = 1,
-		Max = 20,
+		Max = 100,
 		Rounding = 1,
 	})
 
@@ -28,6 +28,12 @@ function CombatTab.initNapeExpander(groupbox)
 		Min = 0,
 		Max = 1,
 		Rounding = 2,
+	})
+
+	depBox:AddDropdown("NapeExpandMethod", {
+		Text = "Expand Method",
+		Default = 1,
+		Values = { "Disconnect", "Override" },
 	})
 
 	depBox:SetupDependencies({ { toggle, true } })

@@ -12004,12 +12004,24 @@ local workspace = game:GetService("Workspace")
 ---@param part BasePart
 ---@param scale number
 local function expandPart(part, scale)
-	-- Strip the size-protection signal set up by TitanClient's ProtectHitboxSizes.
-	for _, conn in ipairs(getconnections(part:GetPropertyChangedSignal("Size"))) do
-		conn:Disconnect()
+	local method = Configuration.expectOptionValue("NapeExpandMethod") or "Disconnect"
+
+	if method == "Disconnect" then
+		for _, conn in ipairs(getconnections(part:GetPropertyChangedSignal("Size"))) do
+			conn:Disconnect()
+		end
+		part.Size = part.Size * scale
+	else
+		-- Override: keep resetting the size every time the game reverts it.
+		local targetSize = part.Size * scale
+		part.Size = targetSize
+		maid:add(part:GetPropertyChangedSignal("Size"):Connect(function()
+			if part.Size ~= targetSize then
+				part.Size = targetSize
+			end
+		end))
 	end
 
-	part.Size = part.Size * scale
 	part.CanCollide = false
 	part.Transparency = Configuration.expectOptionValue("NapeTransparency") or 1
 end
@@ -15517,7 +15529,7 @@ function CombatTab.initNapeExpander(groupbox)
 		Tooltip = "Multiplier applied to the original hitbox size.",
 		Default = 5,
 		Min = 1,
-		Max = 20,
+		Max = 100,
 		Rounding = 1,
 	})
 
@@ -15528,6 +15540,12 @@ function CombatTab.initNapeExpander(groupbox)
 		Min = 0,
 		Max = 1,
 		Rounding = 2,
+	})
+
+	depBox:AddDropdown("NapeExpandMethod", {
+		Text = "Expand Method",
+		Default = 1,
+		Values = { "Disconnect", "Override" },
 	})
 
 	depBox:SetupDependencies({ { toggle, true } })
