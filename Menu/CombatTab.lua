@@ -17,7 +17,7 @@ function CombatTab.initNapeExpander(groupbox)
 		Tooltip = "Multiplier applied to the original hitbox size.",
 		Default = 5,
 		Min = 1,
-		Max = 100,
+		Max = 500,
 		Rounding = 1,
 	})
 
